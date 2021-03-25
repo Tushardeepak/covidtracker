@@ -14,6 +14,7 @@ import { sortData, prettyPrintStat } from "./utils";
 import LineGraph from "./LineGraph";
 import "leaflet/dist/leaflet.css";
 import "./InfoBox.css";
+import News from "./News";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -82,70 +83,73 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app__left">
-        <div className="app__header">
-          <h1>Covid-19 Tracker</h1>
-          <FormControl className="app__dropdown">
-            <Select
-              variant="outlined"
-              onChange={onCountryChange}
-              value={country}
-            >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+      <div className="appContainer">
+        <div className="app__left">
+          <div className="app__header">
+            <h1>Covid-19 Tracker</h1>
+            <FormControl className="app__dropdown">
+              <Select
+                variant="outlined"
+                onChange={onCountryChange}
+                value={country}
+              >
+                <MenuItem value="worldwide">Worldwide</MenuItem>
+                {countries.map((country) => (
+                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-        <div className="app__stats">
-          <InfoBox
-            isRed
-            active={casesType === "cases"}
-            className="infoBox__cases"
-            onClick={(e) => setCasesType("cases")}
-            title="Coronavirus Cases"
-            total={prettyPrintStat(countryInfo.cases)}
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            isloading={isLoading}
-          />
-          <InfoBox
-            isGreen
-            active={casesType === "recovered"}
-            className="infoBox__recovered"
-            onClick={(e) => setCasesType("recovered")}
-            title="Recovered"
-            total={prettyPrintStat(countryInfo.recovered)}
-            cases={prettyPrintStat(countryInfo.todayRecovered)}
-            isloading={isLoading}
-          />
-          <InfoBox
-            isGrey
-            active={casesType === "deaths"}
-            className="infoBox__deaths"
-            onClick={(e) => setCasesType("deaths")}
-            title="Deaths"
-            total={prettyPrintStat(countryInfo.deaths)}
-            cases={prettyPrintStat(countryInfo.todayDeaths)}
-            isloading={isLoading}
+          <div className="app__stats">
+            <InfoBox
+              isRed
+              active={casesType === "cases"}
+              className="infoBox__cases"
+              onClick={(e) => setCasesType("cases")}
+              title="Coronavirus Cases"
+              total={prettyPrintStat(countryInfo.cases)}
+              cases={prettyPrintStat(countryInfo.todayCases)}
+              isloading={isLoading}
+            />
+            <InfoBox
+              isGreen
+              active={casesType === "recovered"}
+              className="infoBox__recovered"
+              onClick={(e) => setCasesType("recovered")}
+              title="Recovered"
+              total={prettyPrintStat(countryInfo.recovered)}
+              cases={prettyPrintStat(countryInfo.todayRecovered)}
+              isloading={isLoading}
+            />
+            <InfoBox
+              isGrey
+              active={casesType === "deaths"}
+              className="infoBox__deaths"
+              onClick={(e) => setCasesType("deaths")}
+              title="Deaths"
+              total={prettyPrintStat(countryInfo.deaths)}
+              cases={prettyPrintStat(countryInfo.todayDeaths)}
+              isloading={isLoading}
+            />
+          </div>
+          <Map
+            countries={mapCountries}
+            center={mapCenter}
+            zoom={zoom}
+            casesType={casesType}
           />
         </div>
-        <Map
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={zoom}
-          casesType={casesType}
-        />
+        <Card className="app__right">
+          <CardContent>
+            <h3 className="app__graphTitle">WorldWide new {casesType}</h3>
+            <LineGraph className="app__graph" casesType={casesType} />
+            <h3 className="app__TableTitle">Live Cases by Country</h3>
+            <Table countries={tableData} />
+          </CardContent>
+        </Card>
       </div>
-      <Card className="app__right">
-        <CardContent>
-          <h3 className="app__graphTitle">WorldWide new {casesType}</h3>
-          <LineGraph className="app__graph" casesType={casesType} />
-          <h3 className="app__TableTitle">Live Cases by Country</h3>
-          <Table countries={tableData} />
-        </CardContent>
-      </Card>
+      <News country={country} />
     </div>
   );
 }
