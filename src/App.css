@@ -1,37 +1,84 @@
 * {
   margin: 0;
-  padding: 0;
 }
+
 body {
-  /* color: #fff;
-  background-color: rgb(0, 0, 0); */
-  overflow-x: hidden;
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(4, 161, 109);
 }
+
 .app {
   display: flex;
-  padding: 20px 50px;
+  justify-content: space-evenly;
+  padding: 20px;
 }
-.appHeader {
+
+.app__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
-.appLeft {
-  flex: 0.7;
-  margin-right: 20px;
-}
-.appRight {
-  flex: 0.3;
-}
-.infoBoxContainer {
+
+.app__stats {
   display: flex;
   justify-content: space-between;
 }
 
-@media (max-width: 740px) {
+.app__left {
+  flex: 0.9;
+}
+
+.app__right {
+  display: flex;
+  flex-direction: column;
+  background-color: black !important;
+}
+
+.app__graphTitle {
+  margin-bottom: 20px;
+  color: rgb(4, 161, 109);
+}
+
+.app__TableTitle {
+  margin-top: 20px;
+  color: rgb(4, 161, 109);
+}
+
+.app__right .MuiCardContent-root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.app__graph {
+  flex-grow: 1;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  padding: 0 0.5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 5px;
+}
+
+@media (max-width: 990px) {
   .app {
-    display: flex;
-    justify-content: space-evenly;
     flex-direction: column;
   }
+}
+
+.color {
+  color: rgb(4, 161, 109);
 }

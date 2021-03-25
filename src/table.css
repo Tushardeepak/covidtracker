@@ -3,13 +3,14 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 400px;
+  color: #fff;
 }
 .table tr {
   display: flex;
   justify-content: space-between;
 }
 .table tr:nth-child(odd) {
-  background-color: rgb(235, 233, 233) !important;
+  background-color: rgb(83, 83, 83) !important;
 }
 
 .table td {
